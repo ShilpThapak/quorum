@@ -6,7 +6,7 @@
 
 FROM golang:1.24 AS gobuild
 WORKDIR /src
-COPY server/go.mod server/go.mod
+COPY server/go.mod ./
 COPY server/*.go ./
 RUN CGO_ENABLED=0 go build -o /out/quorum-server .
 
