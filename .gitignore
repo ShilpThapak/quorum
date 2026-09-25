@@ -1,0 +1,31 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# env / secrets
+.env
+.env.*
+!.env.example
+
+# Go (server)
+server/quorum-server
+server/server
+server/*.test
+*.exe
+server/server.log
+server/dev.log
+server/*.out
+
+# Node / Vite (web)
+web/node_modules/
+web/dist/
+web/dev.log
+*.tsbuildinfo
+web/.vite/
+npm-debug.log*
+
+# Docker
+.dockerignore

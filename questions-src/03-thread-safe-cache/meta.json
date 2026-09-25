@@ -1,0 +1,21 @@
+{
+  "id": "thread-safe-cache",
+  "title": "Thread-safe Cache",
+  "slug": "thread-safe-cache",
+  "difficulty": 3,
+  "tags": ["mutex", "LRU cache", "data race"],
+  "timeout": 90,
+  "description": "An LRU cache is hammered by a mock server from many goroutines. golang's map is not thread safe under concurrent writers. Add a mutex to make it safe.",
+  "task": "Change the code to make the cache thread safe, so `go test -race` passes. Multiple writers must both work and keep the LRU correct.",
+  "hints": [
+    "Guard every access to the cache map and the LRU list with a sync.Mutex.",
+    "You may add a mutex field to KeyStoreCache.",
+    "Holding the lock for the whole Get() is fine for this exercise."
+  ],
+  "sourceName": "golang concurrency exercises",
+  "sourceUrl": "https://github.com/loong/go-concurrency-exercises",
+  "sourceFile": "2-race-in-cache/main.go",
+  "license": "WTFPL",
+  "starterFails": "starter.go writes to cache.cache and cache.pages without synchronization (-race detects the race)",
+  "referenceFixes": "reference.go guards cache.cache and cache.pages with a sync.Mutex"
+}

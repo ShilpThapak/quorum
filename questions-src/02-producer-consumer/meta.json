@@ -1,0 +1,21 @@
+{
+  "id": "producer-consumer",
+  "title": "Producer-Consumer",
+  "slug": "producer-consumer",
+  "difficulty": 2,
+  "tags": ["channels", "goroutines", "concurrency"],
+  "timeout": 60,
+  "description": "A producer reads tweets from a mock stream and a consumer filters them. Make producer and consumer run concurrently (add a channel, about 6 lines).",
+  "task": "Change the code so the producer and the consumer run concurrently — the consumer should process each tweet as soon as the producer reads it.",
+  "hints": [
+    "Both producer and consumer must be in their own goroutine.",
+    "A single buffered channel can bridge the two.",
+    "Run producer and consumer side by side; the whole pipeline should take about max(5*320ms, 5*330ms)."
+  ],
+  "sourceName": "golang concurrency exercises",
+  "sourceUrl": "https://github.com/loong/go-concurrency-exercises",
+  "sourceFile": "1-producer-consumer/main.go",
+  "license": "WTFPL",
+  "starterFails": "starter.go runs producer fully, then consumer (sequential => ~3.2s)",
+  "referenceFixes": "reference.go launches producer and consumer concurrently (=> ~1.7s)"
+}

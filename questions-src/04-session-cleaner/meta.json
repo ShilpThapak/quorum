@@ -1,0 +1,21 @@
+{
+  "id": "session-cleaner",
+  "title": "Session Cleaner",
+  "slug": "session-cleaner",
+  "difficulty": 4,
+  "tags": ["goroutines", "background task", "maps", "sleep"],
+  "timeout": 120,
+  "description": "A SessionManager stores sessions in memory but never cleans them up, so it leaks. Add a cleaner goroutine that removes sessions idle for more than 5s, without race conditions.",
+  "task": "Implement a session cleaner that runs concurrently in the background and cleans every session not updated for more than 5 seconds. Be careful about race conditions.",
+  "hints": [
+    "Track the last update time of each session.",
+    "A background goroutine should poll (e.g. every second) and delete stale sessions.",
+    "Guard the sessions map with a mutex; renew the session expiry on update."
+  ],
+  "sourceName": "golang concurrency exercises",
+  "sourceUrl": "https://github.com/loong/go-concurrency-exercises",
+  "sourceFile": "5-session-cleaner/main.go",
+  "license": "WTFPL",
+  "starterFails": "starter.go never cleans sessions, so sessions leak after 7s (test fails)",
+  "referenceFixes": "reference.go adds a cleaner goroutine + mutex and removes stale sessions"
+}

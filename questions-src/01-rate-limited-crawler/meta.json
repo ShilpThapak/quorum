@@ -1,0 +1,21 @@
+{
+  "id": "rate-limited-crawler",
+  "title": "Rate-Limited Crawler",
+  "slug": "rate-limited-crawler",
+  "difficulty": 2,
+  "tags": ["goroutines", "time.Ticker", "rate limiting"],
+  "timeout": 60,
+  "description": "Given a very fast recursive crawler, limit it to at most one page per second while keeping Crawl() concurrent. Add a shared one-second ticker (about 3 lines).",
+  "task": "Change the code to limit the crawler to at most one page per second, while maintaining concurrency (Crawl() must still be called concurrently).",
+  "hints": [
+    "You only need to add 3 lines.",
+    "A shared time.NewTicker(time.Second) will naturally serialize page fetches.",
+    "Make sure Crawl(url,...) is still called with the `go` keyword."
+  ],
+  "sourceName": "golang concurrency exercises",
+  "sourceUrl": "https://github.com/loong/go-concurrency-exercises",
+  "sourceFile": "0-limit-crawler/main.go",
+  "license": "WTFPL",
+  "starterFails": "starter.go fetches pages immediately without any delay, so two crawls happen less than 1s apart",
+  "referenceFixes": "reference.go adds a shared 1s ticker waited on inside Crawl before each fetch"
+}
