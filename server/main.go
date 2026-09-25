@@ -91,8 +91,22 @@ func main() {
 
 	addr := ":" + envOr("PORT", "8090")
 	log.Printf("quorum grader on http://localhost%s (questions=%s)", addr, base)
-	s := &http.Server{Addr: addr, Handler: mux, ReadTimeout: 30 * time.Second}
+	s := &http.Server{Addr: addr, Handler: withCORS(mux), ReadTimeout: 30 * time.Second}
 	log.Fatal(s.ListenAndServe())
+}
+
+// withCORS lets the separate static web site (different origin) call the API.
+func withCORS(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Access-Control-Allow-Origin", "*")
+		w.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+		w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+		if r.Method == http.MethodOptions {
+			w.WriteHeader(http.StatusNoContent)
+			return
+		}
+		next.ServeHTTP(w, r)
+	})
 }
 
 func writeJSON(w http.ResponseWriter, v any) {

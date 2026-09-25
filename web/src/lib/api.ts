@@ -28,21 +28,23 @@ export interface Report {
 }
 
 
+const API_BASE = import.meta.env.VITE_API_BASE ?? "";
+
 export async function listQuestions(): Promise<QuestionMeta[]> {
-  const r = await fetch("/api/questions");
+  const r = await fetch(`${API_BASE}/api/questions`);
   if (!r.ok) throw new Error(await r.text());
   return r.json();
 }
 
 export async function loadSource(slug: string, kind: "reference" | "starter"): Promise<string> {
-  const r = await fetch(`/api/source/${slug}/${kind}`);
+  const r = await fetch(`${API_BASE}/api/source/${slug}/${kind}`);
   if (!r.ok) throw new Error(await r.text());
   const d = (await r.json()) as { code: string };
   return d.code;
 }
 
 export async function grade(slug: string, code: string): Promise<Report> {
-  const r = await fetch("/api/grade", {
+  const r = await fetch(`${API_BASE}/api/grade`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ question: slug, kind: "user", code }),
